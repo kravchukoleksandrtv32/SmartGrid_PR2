@@ -2,9 +2,7 @@ package ua.kpi.smartgrid.domain
 
 import kotlin.math.sqrt
 
-/**
- * Формули для системи розподілу електроенергії (з практичної роботи №1).
- */
+
 object Calculator {
 
     // P = √3 · U · I · cosφ, кВт (U у кВ)
