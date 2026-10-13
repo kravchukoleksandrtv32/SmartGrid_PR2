@@ -9,17 +9,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ua.kpi.smartgrid.data.GridRepository
 
-/** Стан екранів входу та реєстрації. */
 data class AuthUiState(
     val isLoading: Boolean = false,  // показувати індикатор завантаження
-    val error: String? = null,       // текст помилки від сервера / бази
+    val error: String? = null,       // текст помилки
     val message: String? = null      // повідомлення про успіх
 )
 
-/**
- * ViewModel для входу і реєстрації.
- * View (екран) лише викликає login()/register() і показує стан uiState.
- */
+
 class AuthViewModel(private val repository: GridRepository) : ViewModel() {
 
     private val _uiState = MutableStateFlow(AuthUiState())
@@ -29,7 +25,7 @@ class AuthViewModel(private val repository: GridRepository) : ViewModel() {
         viewModelScope.launch { repository.ensureDemoUser() }
     }
 
-    // Вхід; при успіху викликає onSuccess з ім'ям користувача
+    // Вхід;
     fun login(email: String, password: String, onSuccess: (String) -> Unit) {
         viewModelScope.launch {
             _uiState.value = AuthUiState(isLoading = true)
@@ -44,7 +40,7 @@ class AuthViewModel(private val repository: GridRepository) : ViewModel() {
         }
     }
 
-    // Реєстрація; repository перевіряє унікальність email у базі
+    // Реєстрація
     fun register(name: String, email: String, password: String, onSuccess: () -> Unit) {
         viewModelScope.launch {
             _uiState.value = AuthUiState(isLoading = true)
