@@ -1,9 +1,6 @@
 package ua.kpi.smartgrid.domain
 
-/**
- * Перевірка введених даних (заняття 6).
- * Кожна функція повертає текст помилки або null, якщо значення правильне.
- */
+
 object Validator {
 
     private val emailRegex = Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
@@ -18,7 +15,6 @@ object Validator {
         return null
     }
 
-    // Складність пароля: щонайменше 8 символів, літера і цифра
     fun validatePassword(password: String): String? {
         if (password.length < 8) return "Щонайменше 8 символів"
         if (!password.any { it.isLetter() }) return "Додайте хоча б одну літеру"
