@@ -9,9 +9,7 @@ import kotlinx.coroutines.launch
 import ua.kpi.smartgrid.data.GridRepository
 import ua.kpi.smartgrid.domain.Calculator
 
-/**
- * Стан екрана моніторингу: завантаження, успіх або помилка.
- */
+
 sealed class MonitoringUiState {
     object Loading : MonitoringUiState()
     data class Success(
@@ -23,10 +21,6 @@ sealed class MonitoringUiState {
     data class Error(val message: String) : MonitoringUiState()
 }
 
-/**
- * ViewModel моніторингу: асинхронно отримує показники з сервера через Repository
- * і перетворює їх на стан для UI. Стан зберігається при повороті екрана.
- */
 class MonitoringViewModel(private val repository: GridRepository) : ViewModel() {
 
     private val _uiState = MutableStateFlow<MonitoringUiState>(MonitoringUiState.Loading)
