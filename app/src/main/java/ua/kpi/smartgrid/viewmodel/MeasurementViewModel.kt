@@ -17,21 +17,17 @@ import ua.kpi.smartgrid.data.local.MeasurementEntity
 import ua.kpi.smartgrid.data.local.MeasurementWithSubstation
 import ua.kpi.smartgrid.data.local.SubstationEntity
 
-/**
- * ViewModel журналу вимірювань: пошук, сортування, зведення,
- * додавання, редагування і видалення записів у Room.
- */
+
 @OptIn(ExperimentalCoroutinesApi::class)
 class MeasurementViewModel(private val repository: GridRepository) : ViewModel() {
 
-    // Параметри пошуку і сортування (змінює UI)
+    // Параметри пошуку і сортування
     val query = MutableStateFlow("")
     val sortByPower = MutableStateFlow(false)
 
     // Помилка завантаження довідника підстанцій
     val error = MutableStateFlow<String?>(null)
 
-    // Список вимірювань: при зміні query або sortByPower виконується новий запит до Room
     val measurements: StateFlow<List<MeasurementWithSubstation>> =
         combine(query, sortByPower) { q, s -> q to s }
             .flatMapLatest { (q, s) -> repository.measurements(q, s) }
