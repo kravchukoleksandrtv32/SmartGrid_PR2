@@ -1,4 +1,3 @@
-// Кореневий файл збірки: оголошуємо плагіни, які використовуються в модулях (apply false)
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
