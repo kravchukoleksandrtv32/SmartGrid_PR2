@@ -7,10 +7,6 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-/**
- * Таблиця користувачів (операторів мережі).
- * Індекс з unique = true гарантує, що email не повторюється.
- */
 @Entity(tableName = "users", indices = [Index(value = ["email"], unique = true)])
 data class UserEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
@@ -19,10 +15,7 @@ data class UserEntity(
     val password: String
 )
 
-/**
- * Таблиця підстанцій.
- * Одна підстанція має багато вимірювань (зв'язок один-до-багатьох).
- */
+
 @Entity(tableName = "substations")
 data class SubstationEntity(
     @PrimaryKey val id: Int,
@@ -30,10 +23,6 @@ data class SubstationEntity(
     @ColumnInfo(name = "capacity_kw") val capacityKw: Double // номінальна потужність, кВт
 )
 
-/**
- * Таблиця вимірювань лінії. Поле substationId — зовнішній ключ на підстанцію.
- * Потужність і втрати — обчислювані поля, рахуються при збереженні.
- */
 @Entity(
     tableName = "measurements",
     foreignKeys = [ForeignKey(
@@ -56,9 +45,7 @@ data class MeasurementEntity(
     val createdAt: Long      // час запису, мс
 )
 
-/**
- * Результат запиту з JOIN: вимірювання + назва і потужність його підстанції.
- */
+
 data class MeasurementWithSubstation(
     @Embedded val measurement: MeasurementEntity,
     val substationName: String,
