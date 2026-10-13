@@ -15,7 +15,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SmartGridTheme {
-                // NavController керує переходами між екранами
                 val navController = rememberNavController()
                 Surface(modifier = Modifier.fillMaxSize()) {
                     AppNavHost(navController)
