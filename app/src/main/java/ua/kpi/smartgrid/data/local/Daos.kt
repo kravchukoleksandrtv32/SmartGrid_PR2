@@ -9,7 +9,6 @@ import androidx.room.Transaction
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
-/** Доступ до таблиці користувачів. */
 @Dao
 interface UserDao {
     @Insert
@@ -19,20 +18,18 @@ interface UserDao {
     suspend fun findByEmail(email: String): UserEntity?
 }
 
-/** Доступ до таблиці підстанцій. */
 @Dao
 interface SubstationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(substations: List<SubstationEntity>)
 
     @Query("SELECT * FROM substations ORDER BY name")
-    fun getAll(): Flow<List<SubstationEntity>> // Flow — UI оновлюється сам при зміні таблиці
+    fun getAll(): Flow<List<SubstationEntity>> 
 
     @Query("SELECT COUNT(*) FROM substations")
     suspend fun count(): Int
 }
 
-/** Доступ до таблиці вимірювань: додавання, оновлення, видалення, пошук, сортування. */
 @Dao
 interface MeasurementDao {
     @Insert
@@ -47,10 +44,7 @@ interface MeasurementDao {
     @Query("SELECT * FROM measurements WHERE id = :id")
     suspend fun getById(id: Int): MeasurementEntity?
 
-    /**
-     * Пошук за назвою підстанції (LIKE) і сортування:
-     * sortByPower = true — за потужністю, інакше — за датою (нові зверху).
-     */
+    
     @Transaction
     @Query(
         """
